@@ -9,14 +9,15 @@ cat << EOF > ~/.ssh/config
 Host *
     ServerAliveInterval 300
     ServerAliveCountMax 2
-    User appuser
     Port 22
-    IdentityFile ~/.ssh/appuser
 Host someinternalhost
     HostName 10.128.0.17
     ProxyJump 51.250.1.205
+    User appuser
+    IdentityFile ~/.ssh/appuser
 host bastion
     HostName 51.250.1.205
+    User appuser
     IdentityFile ~/.ssh/appuser
 EOF
 
