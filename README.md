@@ -185,3 +185,4 @@ yc compute instance create \
  --metadata serial-port-enable=1 \
  --metadata-from-file user-data=reddit-app.yaml
 ```
+
