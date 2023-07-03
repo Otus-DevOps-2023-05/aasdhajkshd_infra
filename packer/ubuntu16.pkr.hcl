@@ -1,6 +1,6 @@
 variable "key_file" {
   type    = string
-  default = ".yc/key.json"
+  default = "../.yc/key.json"
 }
 
 variable "scripts_folder" {
