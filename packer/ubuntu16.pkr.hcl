@@ -1,9 +1,3 @@
-# aasdhajkshd_infra
-aasdhajkshd Infra repository
-
-# packer http://158.160.115.6:9292/
-## ubuntu16.pkr.hcl
-```hcl
 variable "key_file" {
   type    = string
   default = ".yc/key.json"
@@ -52,5 +46,3 @@ build {
   }
 
 }
-```
-# лог установки packer/packer.log
