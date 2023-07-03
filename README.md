@@ -1,7 +1,7 @@
 # aasdhajkshd_infra
 aasdhajkshd Infra repository
 
-# packer http://158.160.115.6:9292/
+> packer http://158.160.115.6:9292/
 ## ubuntu16.pkr.hcl
 ```hcl
 variable "key_file" {
@@ -53,4 +53,5 @@ build {
 
 }
 ```
-# лог установки packer/packer.log
+## лог установки
+> packer/packer.log
