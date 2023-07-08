@@ -1,57 +1,38 @@
 # aasdhajkshd_infra
 aasdhajkshd Infra repository
 
-> packer http://158.160.115.6:9292/
-## ubuntu16.pkr.hcl
-```hcl
-variable "key_file" {
-  type    = string
-  default = ".yc/key.json"
-}
+## лог создания terraform виртуальных машин
+> terraform/terraform.log
 
-variable "scripts_folder" {
-  type    = string
-  default = "scripts"
-}
+## балансировщик
+> код в main.tf закомментирован, lb.tf
 
-source "yandex" "test" {
-  service_account_key_file = var.key_file
-  folder_id           = "b1g0da3u1gqk0nansi59"
-  source_image_family = "ubuntu-1604-lts"
-  image_name          = "reddit-base-{{timestamp}}"
-  image_family        = "reddit-base"
-  ssh_username        = "ubuntu"
-  use_ipv4_nat        = "true"
-  use_internal_ip     = "false"
-  max_retries         = "5"
-  platform_id         = "standard-v1"
-  subnet_id           = "e9bi9oji8ljojstbt6cp"
-}
+## count
+> найдено решение в блоке connection использовать self.network_interface[0].nat_ip_address, чтобы обойти проблему цикла при terraform plan
 
-build {
-  sources  = ["source.yandex.test"]
-
-  provisioner "shell" {
-    inline = [
-      "echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections",
-      "sudo apt-get update",
-      "sudo apt install -q -y dialog rsync dos2unix git",
-      "sudo apt upgrade -y"
-    ]
-    pause_before    = "5s"
-  }
-
-  provisioner "shell" {
-    environment_vars = [
-      "DEBIAN_FRONTEND=noninteractive"
-    ]
-    scripts          = ["${var.scripts_folder}/install_ruby.sh", "${var.scripts_folder}/install_mongodb.sh"]
-    execute_command = "sudo -s sh -c {{.Path}}"
-    timeout         = "5m"
-    pause_before    = "30s"
-  }
-
-}
+## .gitignore
+```text
+terraform/.gitignore 
+**/key.json
+key.json
+/.secrets/*
+secrets.*
+*.tfstate
+*.tfstate.*
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+/.terraform/*
+.terraform.lock.hcl
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
 ```
-## лог установки
-> packer/packer.log
