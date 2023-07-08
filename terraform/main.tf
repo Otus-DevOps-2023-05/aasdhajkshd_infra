@@ -2,7 +2,7 @@ terraform {
   required_providers {
     yandex = {
       source  = "yandex-cloud/yandex"
-      version = ">= 0.87.0"
+      version = "0.94.0"
     }
   }
   required_version = ">= 0.13"
@@ -26,8 +26,8 @@ resource "yandex_compute_instance" "reddit-app" {
   platform_id = "standard-v1"
 
   metadata = {
-    user-data = "${file("meta.yaml")}"
-    # ssh-keys = "ubuntu:${file("~/.ssh/id_rsa-appuser.pub")}"
+    # user-data = file("meta.yaml")
+    ssh-keys = "ubuntu:${file(var.public_key_path)}"
   }
 
   resources {
@@ -95,7 +95,7 @@ resource "yandex_lb_target_group" "reddit-app" {
 
   target {
     subnet_id = var.subnet_id
-    address = yandex_compute_instance.reddit-app[count.index].network_interface.0.ip_address
+    address = yandex_compute_instance.reddit-app[count.index].network_interface[0].ip_address
   }
 }
  */

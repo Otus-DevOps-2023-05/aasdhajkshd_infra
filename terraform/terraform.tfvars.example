@@ -7,3 +7,4 @@ private_key_path         = "~/.ssh/id_rsa-appuser"
 subnet_id                = "e9bi9oji8ljojstbt6cp"
 service_account_key_file = "key.json"
 vm_name_pfx              = "reddit-app"
+instance_count           = 1

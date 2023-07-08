@@ -23,16 +23,15 @@ resource "yandex_lb_network_load_balancer" "reddit-app" {
 }
 
 resource "yandex_lb_target_group" "reddit-app" {
-  count = var.instance_count
   name  = "reddit-app"
 
   target {
     subnet_id = var.subnet_id
-    address   = yandex_compute_instance.reddit-app[0].network_interface.0.ip_address
+    address   = yandex_compute_instance.reddit-app[0].network_interface[0].ip_address
   }
 
   target {
     subnet_id = var.subnet_id
-    address   = yandex_compute_instance.reddit-app[1].network_interface.0.ip_address
+    address   = yandex_compute_instance.reddit-app[1].network_interface[0].ip_address
   }
 }

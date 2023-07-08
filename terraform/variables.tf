@@ -1,12 +1,15 @@
 variable "cloud_id" {
+  type        = string
   description = "Cloud"
 }
 
 variable "folder_id" {
+  type        = string
   description = "Folder"
 }
 
 variable "zone" {
+  type        = string
   description = "Zone"
   default     = "ru-central1-a"
 }
@@ -22,24 +25,28 @@ variable "private_key_path" {
 }
 
 variable "image_id" {
+  type        = string
   description = "Disk image"
 }
 
 variable "subnet_id" {
+  type        = string
   description = "Subnet"
 }
 
 variable "service_account_key_file" {
+  type        = string
   description = "Key .json"
 }
 
 variable "token" {
+  type        = string
   description = "Yandex token"
 }
 
 variable "instance_count" {
   type        = number
-  default     = 2
+  default     = 1
   description = "Number of instances"
 }
 

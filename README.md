@@ -7,7 +7,7 @@ aasdhajkshd Infra repository
 ## балансировщик
 > код в main.tf закомментирован, lb.tf
 
-## count
+## Переменная count должна задается в параметрах
 > найдено решение в блоке connection использовать self.network_interface[0].nat_ip_address, чтобы обойти проблему цикла при terraform plan
 
 ## .gitignore
@@ -35,4 +35,9 @@ override.tf.json
 *_override.tf.json
 .terraformrc
 terraform.rc
+```
+
+## Установлен tflint для проверки terraform файлов
+```sh
+tflint --var-file=terraform.tfvars.example
 ```
