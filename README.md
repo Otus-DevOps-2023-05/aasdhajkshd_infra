@@ -41,3 +41,10 @@ terraform.rc
 ```sh
 tflint --var-file=terraform.tfvars.example
 ```
+## Для terraform 0.12+
+> чтобы успешно пройти проверку, необходимо закомментировать terraform блок
+> согласно документации по Yandex, ранние версии использовали 0.12+, но об этом нет упоминиания в документации, пока не нашел...
+> но есть https://registry.terraform.io/providers/hashicorp/aws/latest/docs здесь подсказка
+
+## в корень добавлен бинарный файл terraform версии 0.12.19
+> до модулей еще далеко...
