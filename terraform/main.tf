@@ -1,21 +1,3 @@
-terraform {
-  required_providers {
-    yandex = {
-      source  = "yandex-cloud/yandex"
-      version = ">= 0.94.0"
-    }
-  }
-  required_version = ">= 0.12"
-}
-
-provider "yandex" {
-  # token = var.token
-  service_account_key_file = var.service_account_key_file
-  cloud_id                 = var.cloud_id
-  folder_id                = var.folder_id
-  zone                     = var.zone
-}
-
 resource "yandex_compute_instance" "reddit-app" {
 
   count = var.instance_count
@@ -64,38 +46,3 @@ resource "yandex_compute_instance" "reddit-app" {
     private_key = file(var.private_key_path)
   }
 }
-
-/* resource "yandex_lb_network_load_balancer" "reddit-app" {
-  name = "reddit-app"
-
-  listener {
-    name = "listener-reddit-app"
-    port = 9292
-    external_address_spec {
-      ip_version = "ipv4"
-    }
-  }
-
-  attached_target_group {
-    target_group_id = yandex_lb_target_group.reddit-app.id
-
-    healthcheck {
-      name = "http"
-      http_options {
-        port = 9292
-        path = "/"
-      }
-    }
-  }
-}
-
-resource "yandex_lb_target_group" "reddit-app" {
-  count = var.instance_count
-  name = "reddit-app"
-
-  target {
-    subnet_id = var.subnet_id
-    address = yandex_compute_instance.reddit-app[count.index].network_interface[0].ip_address
-  }
-}
- */
