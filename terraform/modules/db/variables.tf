@@ -24,34 +24,21 @@ variable "private_key_path" {
   description = "Path to the private key used for ssh access"
 }
 
-variable "image_id" {
+variable "db_image_id" {
   type        = string
-  description = "Disk image"
+  description = "Disk image for reddit app"
+  default = "reddit-db-base"
 }
 
 variable "subnet_id" {
   type        = string
-  description = "Subnet"
-}
-
-variable "service_account_key_file" {
-  type        = string
-  description = "Key .json"
-}
-
-variable "token" {
-  type        = string
-  description = "Yandex token"
+  description = "Subnets for modules"
 }
 
 variable "instance_count" {
   type        = number
   default     = 1
   description = "Number of instances"
-}
-
-variable "vm_name_pfx" {
-  type = string
 }
 
 variable "external_ip_address" {
