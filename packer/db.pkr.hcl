@@ -1,13 +1,3 @@
-variable "key_file" {
-  type    = string
-  default = "../.yc/key.json"
-}
-
-variable "scripts_folder" {
-  type    = string
-  default = "scripts"
-}
-
 source "yandex" "test" {
   service_account_key_file = var.key_file
   folder_id           = "b1g0da3u1gqk0nansi59"
@@ -39,7 +29,7 @@ build {
     environment_vars = [
       "DEBIAN_FRONTEND=noninteractive"
     ]
-    scripts          = ["${var.scripts_folder}/install_ruby.sh", "${var.scripts_folder}/install_mongodb.sh"]
+    scripts          = ["${var.scripts_folder}/install_mongodb.sh"]
     execute_command = "sudo -s sh -c {{.Path}}"
     timeout         = "5m"
     pause_before    = "30s"
