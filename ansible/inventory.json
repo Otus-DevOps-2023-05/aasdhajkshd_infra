@@ -1,0 +1,27 @@
+{
+  "all": {
+    "hosts": {
+      "reddit-app": {
+        "ansible_host": "158.160.48.2"
+      },
+      "reddit-db": {
+        "ansible_host": "158.160.96.79"
+      }
+    },
+    "children": {
+      "app": {
+        "hosts": {
+          "reddit-app": {}
+        },
+        "vars": {
+          "ansible_port": 22
+        }
+      },
+      "db": {
+        "hosts": {
+          "reddit-db": {}
+        }
+      }
+    }
+  }
+}

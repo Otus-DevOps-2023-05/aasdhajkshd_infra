@@ -14,7 +14,7 @@ variable "zone" {
   default     = "ru-central1-a"
 }
 
-variable "service_account_key_file" {
-  type        = string
-  description = "Key .json"
+variable "token" {
+  type = string
+  description = "Oauth token"
 }
