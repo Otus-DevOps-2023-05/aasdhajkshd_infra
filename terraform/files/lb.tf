@@ -35,7 +35,7 @@ resource "yandex_lb_target_group" "reddit-app" {
     address   = yandex_compute_instance.reddit-app[1].network_interface[0].ip_address
   }
 }
- 
+
 output "lb_ip_address" {
   value = yandex_lb_network_load_balancer.reddit-app.listener.*.external_address_spec[0].*.address
 }
