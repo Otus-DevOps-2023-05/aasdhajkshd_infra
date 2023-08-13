@@ -36,7 +36,7 @@ resource "yandex_compute_instance" "reddit-db" {
     agent       = false
     private_key = file(var.private_key_path)
   }
-  
+
   # depends_on = [
   #   yandex_vpc_network.app-network
   # ]

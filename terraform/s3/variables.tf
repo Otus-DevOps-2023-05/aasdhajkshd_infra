@@ -13,8 +13,3 @@ variable "zone" {
   description = "Zone"
   default     = "ru-central1-a"
 }
-
-variable "token" {
-  type = string
-  description = "Oauth token"
-}
