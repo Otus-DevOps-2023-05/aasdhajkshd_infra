@@ -11,4 +11,3 @@ users:
   - name: reddit
     passwd: $6$VMB6iWdM$V/Pw803Xly5/.rrEje5ngDTN9vbBfVpNoWUomES0UFDQ9r1uc6119iuayG85D13rkJbj042xbsJXgsvMaI5ps/
     shell: /bin/bash
-

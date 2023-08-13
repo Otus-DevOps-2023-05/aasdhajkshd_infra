@@ -1,0 +1,28 @@
+#cloud-config
+package_update: false
+package_upgrade: false
+users:
+  - name: appuser
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxAzVxg3K3JJ0Tpsw+Qs+N2/IKNR2mfhcUT8Whdpzeby7/BOxS6HmydwD01YxFBJQgXi07Mj7RkplyOIz+wc7sZtPGQ9Ju9/2b9zVbM+T5WAO2hPlv38IeJMKRRG3RttYXeS3OfjfegkvwYorpCP3VgDaDp6xu2GQ3G3mESkh/DNjnH6oaYexSQ+GL9AU7k14vNwjK57su5ARn/dUbJln7F4RdFjL2++tZRGp6RGKEIf4KdZamA5SUsRkqwr6hJWQcpaRKLucBK8RSQGCEODVPZIDZ9/VHU1rJwGeKHuNKeLQjChfj1H4WkIOAS7q+x8rNCa4ZAZL+sL6kTuftNFMp appuser@yc
+  - name: reddit
+    passwd: $6$VMB6iWdM$V/Pw803Xly5/.rrEje5ngDTN9vbBfVpNoWUomES0UFDQ9r1uc6119iuayG85D13rkJbj042xbsJXgsvMaI5ps/
+    shell: /bin/bash
+write_files:
+  - encoding: b64
+    content: IyEvYmluL2Jhc2gKaWYgW1sgIiQoc3MgLWFudCAic3BvcnQgPSA6OTI5MiIgfCB0YWlsIC1uICsyIHwgYXdrICd7IHByaW50ICQ0IH0nKSIgPT0gIio6OTI5MiIgXV07IHRoZW4KCWVjaG8gIiMjIyBQdW1hIHNlcnZlciBpcyBydW5uaW5nIjsKCXBzIGF1eCB8IGdyZXAgLXYgZ3JlcCB8IGdyZXAgcHVtYQoJZXhpdCAwCmZpCgkKY3VybCAtZnNTTCBodHRwczovL3BncC5tb25nb2RiLmNvbS9zZXJ2ZXItNC40LmFzYyB8IHN1ZG8gZ3BnIC1vIC91c3Ivc2hhcmUva2V5cmluZ3MvbW9uZ29kYi1zZXJ2ZXItNC40LmdwZyAtLWRlYXJtb3IKZWNobyAiZGViIFsgYXJjaD1hbWQ2NCxhcm02NCBzaWduZWQtYnk9L3Vzci9zaGFyZS9rZXlyaW5ncy9tb25nb2RiLXNlcnZlci00LjQuZ3BnIF0gaHR0cHM6Ly9yZXBvLm1vbmdvZGIub3JnL2FwdC91YnVudHUgeGVuaWFsL21vbmdvZGItb3JnLzQuNCBtdWx0aXZlcnNlIiB8IHN1ZG8gdGVlIC9ldGMvYXB0L3NvdXJjZXMubGlzdC5kL21vbmdvZGItb3JnLTQuNC5saXN0CnN1ZG8gYXB0LWdldCB1cGRhdGUgJiYgXAoJc3VkbyBhcHQtZ2V0IGluc3RhbGwgLXkgbW9uZ29kYi1vcmcgcnVieS1mdWxsIHJ1YnktYnVuZGxlciBidWlsZC1lc3NlbnRpYWwgZ2l0IHJzeW5jIGRvczJ1bml4CmlmIFtbICIkKGVjaG8gJD8gPiAvZGV2L251bGwpIiAtZXEgMCBdXTsgdGhlbgoJc3VkbyBzeXN0ZW1jdGwgZW5hYmxlIG1vbmdvZDsgXAoJCXN1ZG8gc3lzdGVtY3RsIHN0YXJ0IG1vbmdvZApmaQppZiBbWyAiJChzdWRvIHN5c3RlbWN0bCBpcy1mYWlsZWQgbW9uZ29kKSIgIT0gImFjdGl2ZSIgXV07IHRoZW4KCWVjaG8gIiEhISBTb21ldGhpbmcgd2VudCB3cm9uZyB3aXRoIG1vbmdvZCBzZXJ2aWNlIgoJc3lzdGVtY3RsIHN0YXR1cyBtb25nb2QKZWxzZQoJZWNobyAiIyMjIE1vbmdvZCBzZXJ2ZXIgaXMgdXAgYW5kIHJ1bm5pbmcuLi4iCmZpCgpbWyAiJCh3aGljaCBnaXQgPiAvZGV2L251bGw7IGVjaG8gJD8pIiAtZXEgMCBdXSB8fCBcCglzdWRvIGFwdC1nZXQgaW5zdGFsbCAteSAKCQpzdWRvIG1rZGlyIC1wIC9kYXRhCgpnaXQgY2xvbmUgLWIgbW9ub2xpdGggaHR0cHM6Ly9naXRodWIuY29tL2V4cHJlc3M0Mi9yZWRkaXQuZ2l0IC9kYXRhL3JlZGRpdApbWyAiJGVjaG8gJD8iIC1lcSAwIF1dIHx8IGVjaG8gIk9oaCwgZ2l0LCBteSBnaXQiCgpzdWRvIGNob3duIHJlZGRpdDpyZWRkaXQgLVIgL2RhdGEKCmVjaG8gIldlIGFyZSBub3cgaW4gJChwd2QpLi4uIgpjZCAvZGF0YS9yZWRkaXQgJiYgXAoJYnVuZGxlIGluc3RhbGwKCmlmIFtbICQoZWNobyAkPykgLW5lIDAgXV07IHRoZW4KCWVjaG8gIiEhISBEZXBsb3ltZW50IGZhaWxlZCwgY2hlY2sgaXQuLi4iCglleGl0IDEKZmkKZXhpdCAw
+    owner: appuser:appuser
+    path: /opt/init.sh
+    permissions: '0755'
+  - encoding: b64
+    content: ZGViIFsgYXJjaD1hbWQ2NCxhcm02NCBzaWduZWQtYnk9L3Vzci9zaGFyZS9rZXlyaW5ncy9tb25nb2RiLXNlcnZlci00LjQuZ3BnIF0gaHR0cHM6Ly9yZXBvLm1vbmdvZGIub3JnL2FwdC91YnVudHUgeGVuaWFsL21vbmdvZGItb3JnLzQuNCBtdWx0aXZlcnNlCg==
+    path: /etc/apt/sources.list.d/mongodb-org-4.4.list
+    permissions: '0644'
+runcmd:
+  - [ sh, -xc, "echo $(date) ': Hello, World!'" ]
+  - [ /opt/init.sh ]
+  - su - reddit -s /bin/bash -c "cd /data/reddit && puma -d"
+  - sed -i '/^exit 0/i su - reddit -s /bin/bash -c "cd /data/reddit && puma -d"' /etc/rc.local

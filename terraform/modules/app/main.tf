@@ -6,7 +6,7 @@ resource "yandex_compute_instance" "reddit-app" {
 
   name        = "reddit-app-${count.index}"
   platform_id = "standard-v1"
-  
+
   labels = {
     tags = "reddit-app"
   }
@@ -50,5 +50,5 @@ resource "yandex_compute_instance" "reddit-app" {
     agent       = false
     private_key = file(var.private_key_path)
   }
-  
+
 }
