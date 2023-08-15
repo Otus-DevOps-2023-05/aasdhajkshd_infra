@@ -56,3 +56,13 @@ variable "external_ip_address" {
   type    = list(string)
   default = []
 }
+
+variable "access_key" {
+  type        = string
+  description = "Path to the storage access key"
+}
+
+variable "secret_key" {
+  type        = string
+  description = "Path to the storage secret key"
+}
