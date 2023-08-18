@@ -1,5 +1,5 @@
 {
-  "key_file": "packer.json",
+  "key_file": "packer/packer.json",
   "scripts_folder": "scripts",
   "folder_id": "b1g0da3u1gqk0nansi59",
   "subnet_id": "e9bi9oji8ljojstbt6cp",
