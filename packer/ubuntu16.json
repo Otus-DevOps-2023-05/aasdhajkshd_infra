@@ -15,6 +15,16 @@
     "provisioners": [
         {
             "type": "shell",
+            "inline": [
+              "echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections",
+              "sudo apt-get update",
+              "sudo apt install -q -y dialog rsync dos2unix git telnet python3",
+              "sudo apt upgrade -y"
+            ],
+            "pause_before": "5s"
+        },
+        {
+            "type": "shell",
             "script": "scripts/install_ruby.sh",
             "execute_command": "sudo {{.Path}}"
         },

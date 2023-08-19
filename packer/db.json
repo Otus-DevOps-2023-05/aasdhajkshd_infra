@@ -2,21 +2,27 @@
     "builders": [
         {
             "type": "yandex",
-            "service_account_key_file": "../../key.json",
-            "folder_id": "b1g0da3u1gqk0nansi59",
+            "service_account_key_file": "{{ user `key_file` }}",
+            "folder_id": "{{ user `folder_id` }}",
             "source_image_family": "ubuntu-1604-lts",
-            "image_name": "reddit-base-{{timestamp}}",
+            "image_name": "reddit-db-{{timestamp}}",
             "image_family": "reddit-base",
-            "ssh_username": "ubuntu",
-            "platform_id": "standard-v1",
-            "zone":      "ru-central1-a"
+            "platform_id": "{{ user `platform_id` }}",
+            "zone":      "ru-central1-a",
+            "use_ipv4_nat": "true",
+            "use_internal_ip": "false",
+            "max_retries": "5",
+            "ssh_username": "{{ user `ssh_user` }}"
         }
     ],
     "provisioners": [
+
         {
-            "type": "shell",
-            "script": "scripts/install_mongodb.sh",
-            "execute_command": "sudo {{.Path}}"
+            "type": "ansible",
+            "extra_arguments": ["-vv", "--ssh-extra-args", "-o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa"],
+            "playbook_file": "ansible/packer_db.yml",
+            "user": "{{user `ssh_user`}}",
+            "ansible_env_vars": ["ANSIBLE_CONFIG=ansible/ansible.cfg", "ANSIBLE_PIPELINING=true"]
         }
     ]
 }

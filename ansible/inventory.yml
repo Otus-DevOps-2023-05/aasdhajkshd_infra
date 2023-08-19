@@ -5,15 +5,10 @@ all:
     app:
       hosts:
         reddit-app:
-          ansible_host: 158.160.48.2
-#        appserver: 
-#          ansible_host: 158.160.48.2
+          ansible_host: 130.193.39.225
       vars:
          ansible_port: 22
     db:
       hosts:
         reddit-db:
-          ansible_host: 158.160.96.79
-#        dbserver:
-#          ansible_host: 158.160.96.79
-
+          ansible_host: 158.160.54.176
