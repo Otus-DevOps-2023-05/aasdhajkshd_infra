@@ -1,4 +1,7 @@
 ---
+- name: Show info about the env this host belongs to
+  debug:
+    msg: "This host is in {{ env }} environment!!!"
 - name: Fetch the latest version of application code
   git:
     repo: 'https://github.com/express42/reddit.git'
@@ -6,7 +9,7 @@
     version: monolith
   notify: Start puma
 - name: Bundle install
-  community.general.bundler:
+  bundler:
     state: present
     chdir: /home/ubuntu/reddit
 - name: Add unit file for Puma
@@ -16,6 +19,3 @@
     dest: /etc/systemd/system/puma.service
     mode: "0644"
   notify: Start puma
-- name: Show info about the env this host belongs to
-  debug:
-    msg: "This host is in {{ env }} environment!!!"

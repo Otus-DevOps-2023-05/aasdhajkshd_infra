@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Otus-DevOps-2023-05/aasdhajkshd_infra.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2023-05/aasdhajkshd_infra)
+[![Build Status](https://travis-ci.com/aasdhajkshd/infra.svg?branch=master)](https://travis-ci.com/aasdhajkshd/infra)
 
 # aasdhajkshd_infra
 AAsdhajkshD Infra repositorz
@@ -32,5 +32,6 @@ terraform validate
 tflint для окружений stage и prod
 ansible-lint для плейбуков Ansible
 ```
-1. Добавлен в **README.md** badge со статусом build'а
-2. TryTravis README.md гласит: This package is no longer maintained. Do not use it. https://github.com/sethmlarson/trytravis
+1. Добавлен в **README.md** badge со статусом build'а (We are unable to start your build at this time. You exceeded the number of users allowed for your plan. Please review your plan details and follow the steps to resolution.)
+2. Репозиториый клонировал в локальный и производится тестирование в Travis CI.
+3. TryTravis README.md гласит: This package is no longer maintained. Do not use it. https://github.com/sethmlarson/trytravis
