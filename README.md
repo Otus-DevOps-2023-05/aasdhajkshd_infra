@@ -32,6 +32,6 @@ terraform validate
 tflint для окружений stage и prod
 ansible-lint для плейбуков Ansible
 ```
-1. Добавлен в **README.md** badge со статусом build'а (We are unable to start your build at this time. You exceeded the number of users allowed for your plan. Please review your plan details and follow the steps to resolution.)
-2. Репозиториый клонировал в локальный и производится тестирование в Travis CI.
+1. Добавлен в **README.md** badge со статусом build'а Trial Plan (We are unable to start your build at this time. You exceeded the number of users allowed for your plan. Please review your plan details and follow the steps to resolution.)
+2. Репозиториый клонировал в локальный и в фоне пробовать пройти тестирование в Travis CI.
 3. TryTravis README.md гласит: This package is no longer maintained. Do not use it. https://github.com/sethmlarson/trytravis
