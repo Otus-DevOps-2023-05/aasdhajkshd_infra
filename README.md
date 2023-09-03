@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/aasdhajkshd/infra.svg?branch=master)](https://travis-ci.com/aasdhajkshd/infra)
 
 # aasdhajkshd_infra
-AAsdhajkshD Infra repositorz
+AAsdhajkshD Infra repository
 
 ---
 
