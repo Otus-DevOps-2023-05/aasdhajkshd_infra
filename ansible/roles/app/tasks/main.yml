@@ -1,4 +1,7 @@
 ---
+- name: Show info about the env this host belongs to
+  debug:
+    msg: "This host is in {{ env }} environment!!!"
 - name: Get Service Status
   service_facts:
     services:
@@ -20,6 +23,3 @@
     enabled: true
     name: puma
   notify: Reload puma
-- name: Show info about the env this host belongs to
-  debug:
-    msg: "This host is in {{ env }} environment!!!"
