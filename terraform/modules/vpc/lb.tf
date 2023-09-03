@@ -23,7 +23,7 @@ resource "yandex_lb_network_load_balancer" "reddit-app" {
 }
 
 resource "yandex_lb_target_group" "reddit-app" {
-  name  = "reddit-app"
+  name = "reddit-app"
 
   target {
     subnet_id = var.subnet_id

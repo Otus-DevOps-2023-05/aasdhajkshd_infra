@@ -4,15 +4,3 @@ repos:
     hooks:
     - id: end-of-file-fixer
     - id: trailing-whitespace
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.74.1
-    hooks:
-    - id: terraform_fmt
-    - id: terraform_docs
-    - id: terraform_tflint
-    - id: terraform_validate
-  - repo: https://github.com/cisagov/pre-commit-packer
-    rev: v0.0.2
-    hooks:
-    - id: packer_validate
-    - id: packer_fmt

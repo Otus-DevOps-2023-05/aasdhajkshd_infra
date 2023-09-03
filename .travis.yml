@@ -12,8 +12,8 @@ sudo: required
 language: bash
 before_install:
   - curl https://raw.githubusercontent.com/express42/otus-homeworks/2023-03/run.sh | bash
-  - curl -sLo /tmp/terraform.zip https://${tf_url}/terraform/${tf_version}/terraform_${tf_version}_${machine_type}.zip 
-  - curl -sLo /tmp/packer.zip https://${tf_url}/terraform/${packer_version}/packer_${packer_version}_${machine_type}.zip 
+  - curl -sLo /tmp/terraform.zip https://${tf_url}/terraform/${tf_version}/terraform_${tf_version}_${machine_type}.zip
+  - curl -sLo /tmp/packer.zip https://${tf_url}/terraform/${packer_version}/packer_${packer_version}_${machine_type}.zip
   - curl -sLo /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${ftlint_version}/tflint_${machine_type}.zip
   - mkdir ~/bin
   - unzip /tmp/terraform.zip -d ~/bin
@@ -26,11 +26,11 @@ before_install:
   - packer --version
   - ansible-lint --version
 script:
-  - terraform validate ./terraform/prod 
+  - terraform validate ./terraform/prod
   - tflint --var-file=terraform.tfvars --minimum-failure-severity=error --chdir=terraform/prod/
   - terraform validate ./terraform/stage
   - tflint --var-file=terraform.tfvars --minimum-failure-severity=error --chdir=terraform/stage/
-  - packer validate -var-file=packer/variables.json packer/app.json 
+  - packer validate -var-file=packer/variables.json packer/app.json
   - packer validate -var-file=packer/variables.json packer/db.json
   - cd ansible
   - ansible-lint playbooks/deploy.yml
