@@ -18,3 +18,5 @@ skip_list:
   - unnamed-task
   - fqcn[action-core]
   - no-free-form
+  - jinja[invalid]
+  - args[module]

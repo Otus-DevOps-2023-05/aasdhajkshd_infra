@@ -1,6 +1,18 @@
 ---
-- import_playbook: db.yml
-- import_playbook: deploy.yml
-- import_playbook: app.yml
-- import_playbook: users.yml
+- name: Play playbooks
+  hosts: localhost
+  tasks:
+    - ansible.builtin.debug:
+        msg: Play site
 
+- name: Include a database playbook
+  ansible.builtin.import_playbook: db.yml
+
+- name: Include a puma deployment playbook
+  ansible.builtin.import_playbook: deploy.yml
+
+- name: Include a puma app playbook
+  ansible.builtin.import_playbook: app.yml
+
+- name: Include a user provisioning playbook
+  ansible.builtin.import_playbook: users.yml
