@@ -1,0 +1,47 @@
+---
+dist: trusty
+version: ~> 1.0
+env:
+  - tf_version=0.12.19
+  - tf_url="hashicorp-releases.yandexcloud.net"
+  - tflint_version=0.47.0
+  - TF_INPUT=false
+  - packer_version=1.9.4
+  - machine_type=linux_amd64
+sudo: required
+language: bash
+before_install:
+  - curl https://raw.githubusercontent.com/express42/otus-homeworks/2023-03/run.sh | bash
+  - curl -sLo /tmp/terraform.zip https://${tf_url}/terraform/${tf_version}/terraform_${tf_version}_${machine_type}.zip 
+  - curl -sLo /tmp/packer.zip https://${tf_url}/terraform/${packer_version}/packer_${packer_version}_${machine_type}.zip 
+  - curl -sLo /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${ftlint_version}/tflint_${machine_type}.zip
+  - mkdir ~/bin
+  - unzip /tmp/terraform.zip -d ~/bin
+  - unzip /tmp/packer.zip -d ~/bin
+  - unzip /tmp/tflint.zip -d ~/bin
+  - chmod +x ~/bin/{terraform,packer,tflint}
+  - export PATH="~/bin:$PATH"
+  - tflint -v
+  - terraform --version
+  - packer --version
+  - ansible-lint --version
+script:
+  - terraform validate ./terraform/prod 
+  - tflint --var-file=terraform.tfvars --minimum-failure-severity=error --chdir=terraform/prod/
+  - terraform validate ./terraform/stage
+  - tflint --var-file=terraform.tfvars --minimum-failure-severity=error --chdir=terraform/stage/
+  - packer validate -var-file=packer/variables.json packer/app.json 
+  - packer validate -var-file=packer/variables.json packer/db.json
+  - cd ansible
+  - ansible-lint playbooks/deploy.yml
+  - ansible-lint playbooks/clone.yml
+  - ansible-lint playbooks/db.yml
+  - ansible-lint playbooks/packer_*.yml
+  - ansible-lint playbooks/users.yml
+  - ansible-galaxy install -r environments/stage/requirements.yml
+  - ansible-lint playbooks/app.yml --exclude=roles/jdauphant.nginx
+  - ansible-lint playbooks/site.yml --exclude=roles/jdauphant.nginx
+notifications:
+  email:
+    on_success: change
+    on_failure: always

@@ -12,7 +12,8 @@
             "use_ipv4_nat": "true",
             "use_internal_ip": "false",
             "max_retries": "5",
-            "ssh_username": "{{ user `ssh_user` }}"
+            "ssh_username": "{{ user `ssh_user` }}",
+            "instance_cores": "2"
         }
     ],
     "provisioners": [
@@ -20,7 +21,7 @@
         {
             "type": "ansible",
             "extra_arguments": ["-vv", "--ssh-extra-args", "-o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa"],
-            "playbook_file": "ansible/packer_app.yml",
+            "playbook_file": "ansible/playbooks/packer_app.yml",
             "user": "{{user `ssh_user`}}",
             "ansible_env_vars": ["ANSIBLE_CONFIG=ansible/ansible.cfg", "ANSIBLE_PIPELINING=true"]
         }

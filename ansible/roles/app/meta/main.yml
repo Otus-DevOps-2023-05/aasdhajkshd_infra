@@ -1,0 +1,8 @@
+galaxy_info:
+  author: AAsdhajkshD
+  description: OTUS training participant
+  company: AUXO
+  license: GPL-2.0-or-later
+  min_ansible_version: 2.15.2
+  galaxy_tags: []
+dependencies: []

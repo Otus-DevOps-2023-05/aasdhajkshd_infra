@@ -1,0 +1,6 @@
+---
+- name: Deploy Puma application
+  hosts: app
+  become: true
+  roles:
+    - deploy
