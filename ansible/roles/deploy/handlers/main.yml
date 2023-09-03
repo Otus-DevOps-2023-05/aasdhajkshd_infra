@@ -1,7 +1,7 @@
 ---
 - name: Start puma
   become: true
-  ansible.builtin.systemd:
+  systemd:
     name: puma
     state: started
     daemon_reload: true

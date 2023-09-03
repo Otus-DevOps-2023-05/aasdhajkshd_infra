@@ -1,9 +1,9 @@
 ---
 - name: Include a database playbook
-  ansible.builtin.import_playbook: db.yml
+  import_playbook: db.yml
 
 - name: Include a puma deployment playbook
-  ansible.builtin.import_playbook: deploy.yml
+  import_playbook: deploy.yml
 
 - name: Include a puma app playbook
-  ansible.builtin.import_playbook: app.yml
+  import_playbook: app.yml

@@ -5,7 +5,7 @@
     - "{{ inventory_dir }}/credentials.yml"
   tasks:
     - name: Create users
-      ansible.builtin.user:
+      user:
         name: "{{ item.key }}"
         shell: /bin/bash
         password: "{{ item.value.password|password_hash('sha512', 65534|random(seed=inventory_hostname)|string) }}"

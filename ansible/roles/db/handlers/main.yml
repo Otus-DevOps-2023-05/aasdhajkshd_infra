@@ -1,6 +1,6 @@
 ---
 - name: Restart database
-  ansible.builtin.systemd:
+  systemd:
     name: mongod
     state: restarted
   listen: "Restart database"
