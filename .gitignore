@@ -13,7 +13,6 @@ example.tf
 .idea
 *.iml
 *.iml
-**/key.json
 *.log
 modules-dev/
 *_override.tf
@@ -26,7 +25,6 @@ secrets.*
 .*.swp
 .terraform/
 /.terraform/*
-.terraform.lock.hcl
 .terraform.lock.hcl
 terraform-provider-google
 terraform-provider-yandex

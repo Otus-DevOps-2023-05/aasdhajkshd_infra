@@ -1,7 +1,0 @@
----
-- name: Start puma
-  become: true
-  systemd:
-    name: puma
-    state: started
-    daemon_reload: true

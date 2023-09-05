@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/aasdhajkshd/infra.svg?branch=master)](https://travis-ci.com/aasdhajkshd/infra)
+[![Build Status](https://app.travis-ci.com/aasdhajkshd/infra.svg?branch=main)](https://app.travis-ci.com/aasdhajkshd/infra)
 
 # aasdhajkshd_infra
 AAsdhajkshD Infra repository
@@ -33,5 +33,6 @@ tflint для окружений stage и prod
 ansible-lint для плейбуков Ansible
 ```
 1. Добавлен в **README.md** badge со статусом build'а Trial Plan (We are unable to start your build at this time. You exceeded the number of users allowed for your plan. Please review your plan details and follow the steps to resolution.)
-2. Репозиториый клонировал в локальный и в фоне пробовать пройти тестирование в Travis CI.
+2. Зеркало Yandex Cloud временно недоступно. https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-modules. Возможно в следствии этого terraform init не инициализируется на платформе travis-ci.com, хотя локально .travis.yml проходит успешно все пункты тестирования репозитория. Правильно для тестирования нужно создавать программу тестирования, например, на python или других языках, а не простыми прямыми командами.
+2. Репозиториый клонировал в локальный aasdhajkshd/infra.git и для badge'а выполнил тестирование в Travis CI. Файл .travis.yml перенесён в текущий репозиторий для демонстрации к заданию.
 3. TryTravis README.md гласит: This package is no longer maintained. Do not use it. https://github.com/sethmlarson/trytravis

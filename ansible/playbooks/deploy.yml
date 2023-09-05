@@ -2,5 +2,35 @@
 - name: Deploy Puma application
   hosts: app
   become: true
-  roles:
-    - deploy
+  vars:
+    mongo_port: 27017
+    mongo_bind_ip: 127.0.0.1
+    env: local
+  tasks:
+    - name: Show info about the env this host belongs to
+      debug:
+        msg: "This host is in {{ env }} environment!!!"
+    - name: Fetch the latest version of application code
+      git:
+        repo: 'https://github.com/express42/reddit.git'
+        dest: /home/{{ remote_user }}/reddit
+        version: monolith
+      notify: Start puma
+    - name: Bundle install
+      bundler:
+        state: present
+        chdir: /home/{{ remote_user }}/reddit
+    - name: Add unit file for Puma
+      become: true
+      copy:
+        src: old/files/puma.service
+        dest: /etc/systemd/system/puma.service
+        mode: "0644"
+      notify: Start puma
+  handlers:
+    - name: Start puma
+      become: true
+      systemd:
+        name: puma
+        state: started
+        daemon_reload: true
