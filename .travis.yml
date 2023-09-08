@@ -1,0 +1,53 @@
+---
+dist: jammy
+version: ~> 22.04
+sudo: required
+language: bash
+before_install:
+  - wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  - echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  - sudo apt update && sudo apt install -y ansible ansible-lint unzip git curl wget
+  - git log -1 --format='%H'
+  - git config --local gc.auto 0
+  - git config --global --add safe.directory '*'
+  - BIN="$HOME/bin"
+  - export TF_VERSION=1.5.6
+  - export TF_URL="hashicorp-releases.yandexcloud.net"
+  - export TFLINT_VERSION=0.47.0
+  - export TF_INPUT=false
+  - export PACKER_VERSION=1.9.4
+  - export MACH_TYPE=linux_amd64
+  - export TF_CLI_CONFIG_FILE="$HOME/.terraformrc"
+  - export TF_IN_AUTOMATION=1
+  - export TF_PROVIDER_YANDEX_VERSION=0.97.0
+  - export TF_PROVIDER_YANDEX_DIR="$HOME/.terraform/plugins/registry.terraform.io/yandex-cloud/yandex/${TF_PROVIDER_YANDEX_VERSION}/linux_amd64/"
+  - export TF_PROVIDER_PLUGINS="$HOME/.terraform/plugins/"
+  - curl -sLo /tmp/terraform.zip https://${TF_URL}/terraform/${TF_VERSION}/terraform_${TF_VERSION}_${MACH_TYPE}.zip
+  - curl -sLo /tmp/packer.zip https://${TF_URL}/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_${MACH_TYPE}.zip
+  - curl -sLo /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_${MACH_TYPE}.zip
+  - curl -sLo /tmp/terraform-provider-yandex.zip https://${TF_URL}/terraform-provider-yandex/${TF_PROVIDER_YANDEX_VERSION}/terraform-provider-yandex_${TF_PROVIDER_YANDEX_VERSION}_${MACH_TYPE}.zip
+  - mkdir -p ${TF_PROVIDER_YANDEX_DIR}
+  - mkdir -p $HOME/.ansible
+  - ls -Alh $HOME/bin/; ls -Alh $HOME/
+  - export PATH="${BIN}:$PATH"; echo $PATH
+  - for i in terraform packer tflint; do unzip -o /tmp/$i.zip -d $BIN; chmod +x $BIN/$i; $BIN/$i --version; done;
+  - git version; ansible --version; ansible-lint --version
+  - unzip -o /tmp/terraform-provider-yandex.zip -d ${TF_PROVIDER_PLUGINS}; ls -Alh ${TF_PROVIDER_PLUGINS}
+script:
+  - find ~/ -name 'aasdhajkshd*'
+  - cp terraform/yandex.tfrc "$TF_CLI_CONFIG_FILE"
+  - $BIN/terraform --version
+  - for i in prod stage; do cd terraform/$i; [[ "$($BIN/terraform init -plugin-dir=$TF_PROVIDER_PLUGINS -backend=false > /dev/null; echo $?)" -ne 0 ]] && $BIN/terraform validate || true; $BIN/tflint --var-file=terraform.tfvars.example; cd ../../; done
+  - $BIN/tflint --var-file=terraform.tfvars.example --minimum-failure-severity=error --chdir=terraform/stage/
+  - $BIN/packer plugins install github.com/hashicorp/ansible && $BIN/packer plugins install github.com/hashicorp/yandex
+  - for i in app db; do $BIN/packer validate -var-file=packer/variables.json.example packer/$i.json; done
+  - cd ansible
+  - openssl aes-256-cbc -k "$vault_key_password" -in vault.key.enc -out ~/.ansible/vault.key -d
+  - for i in deploy clone db packer_* users; do ansible-lint playbooks/$i.yml; done
+  - ansible-galaxy install -r environments/stage/requirements.yml
+  - ansible-lint playbooks/app.yml --exclude=roles/jdauphant.nginx
+  - ansible-lint playbooks/site.yml --exclude=roles/jdauphant.nginx
+notifications:
+  email:
+    on_success: change
+    on_failure: always

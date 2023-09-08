@@ -27,13 +27,13 @@ variable "private_key_path" {
 variable "db_image_id" {
   type        = string
   description = "Disk image for reddit app"
-  default = "reddit-db-base"
+  default     = "reddit-db-base"
 }
 
 variable "app_image_id" {
   type        = string
   description = "Disk image for reddit app"
-  default = "reddit-app-base"
+  default     = "reddit-app-base"
 }
 
 variable "subnet_id" {

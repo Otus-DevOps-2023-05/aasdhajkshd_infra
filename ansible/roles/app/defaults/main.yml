@@ -1,0 +1,8 @@
+---
+db_host: 127.0.0.1
+env: local
+nginx_events_params:
+ - worker_connections 512
+ - debug_connection 127.0.0.1
+ - use epoll
+ - multi_accept on

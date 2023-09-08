@@ -1,0 +1,6 @@
+---
+- name: Restart database
+  systemd:
+    name: mongod
+    state: restarted
+  listen: "Restart database"
