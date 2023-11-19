@@ -3,9 +3,140 @@
 # aasdhajkshd_infra
 AAsdhajkshD Infra repository
 
+## Содержание
+
+* [ansible-3 Работа с ролями и окружениями Ansible](#hw12)
+* [ansible-4 Разработка и тестирование Ansible ролей и плейбуков](#hw13)
+
+## <a name="hw13">Разработка и тестирование Ansible ролей и плейбуков/a>
+
+> <span style="color:red">INFO</span>
+<span style="color:blue">Информация на картинках, как IP адреса или время, может отличаться от приводимой в тексте!</span>
+
+#### Выполненные работы
+
+Выполнена установка `sudo pacman -S extra/vagrant` и VirtualBox.
+
+Выполнено описание описание локальной инфраструктуры и при запуске `vagrant up` возникла сразу ошибка.
+
+Результат:
+
+```output
+Bringing machine 'dbserver' up with 'virtualbox' provider...
+Bringing machine 'appserver' up with 'virtualbox' provider...
+==> dbserver: Box 'ubuntu/xenial64' could not be found. Attempting to find and install...
+    dbserver: Box Provider: virtualbox
+    dbserver: Box Version: >= 0
+The box 'ubuntu/xenial64' could not be found or
+could not be accessed in the remote catalog. If this is a private
+box on HashiCorp's Vagrant Cloud, please verify you're logged in via
+`vagrant login`. Also, please double-check the name. The expanded
+URL and error message are shown below:
+
+URL: ["https://vagrantcloud.com/ubuntu/xenial64"]
+Error: The requested URL returned error: 404
+
+```
+
+Решение использовать [зеркало](https://habr.com/ru/articles/735700/).
+Скачали [образ](https://releases.ubuntu.com/16.04/ubuntu-16.04.7-server-amd64.iso):
+
+```bash
+export VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
+sudo echo -e "* 10.0.0.0/8 192.168.0.0/16\n* 2001::/64" >> /etc/vbox/networks.conf
+sudo chmod go+r /etc/vbox/networks.conf
+```
+
+Лог *vagrant* deployment'а во вложении [README](ansible/README.md)
+
 ---
 
-## Работа с ролями и окружениями Ansible
+### Локальная разработка с Vagrant
+
+```bash
+vagrant destroy -f; vagrant up
+vagrant provision dbserver
+vagrant provision appserver
+vagrant ssh appserver
+telnet 10.10.10.10 27017
+```
+
+Для установки bundle в систему можно установить версию не ниже [1.16.1](https://github.com/express42/reddit/blob/monolith/Gemfile.lock):
+
+```yaml
+- name: Install gem bundler
+  gem:
+    name: bundler
+    norc: false
+    state: present
+    user_install: false
+    force: true
+    version: 2.3.26
+  become: true
+```
+
+Результат:
+
+![Reference](img/Screenshot_20231119_015627.png)
+
+```output
+PLAY RECAP *********************************************************************
+dbserver                   : ok=11   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+PLAY RECAP *********************************************************************
+appserver                  : ok=29   changed=18   unreachable=0    failed=0    skipped=17   rescued=0    ignored=0
+```
+
+![Reference](img/Screenshot_20231119_020000.png)
+![Reference](img/Screenshot_20231119_023931.png)
+
+### Задание со *
+
+Воспользуемся ранее устанавливаемым `jdauphant.nginx`
+
+![Reference](img/Screenshot_20231119_025851.png)
+![Reference](img/Screenshot_20231119_030040.png)
+
+### Тестирование роли
+
+Установка зависимостей `sudo pacman -S extra/molecule-plugins extra/molecule extra/python-pytest-testinfra python-vagrant`
+
+Создание тестовой машины
+
+```bash
+molecule init scenario -d vagrant
+```
+
+![Reference](img/Screenshot_20231119_031602.png)
+
+```bash
+molecule create
+```
+
+![Reference](img/Screenshot_20231119_032026.png)
+
+```bash
+molecule login -h instance
+molecule converge
+molecule verify
+```
+
+В результате тесты прошли успешно
+
+![Reference](img/Screenshot_20231119_032440.png)
+
+### Задание со *
+
+1. вынеса роль **db** в отдельный [репозиторий](https://github.com/aasdhajkshd/mongodb.git) и удалена роль из репозитория **infra** и из файла `playbooks/site.yml`, добавлен в папку `ansible` файл `requirements.yml`
+
+```yaml
+- src: https://github.com/aasdhajkshd/mongodb.git
+  name: aasdhajkshd/mongodb
+```
+
+---
+
+## <a name="hw12">Работа с ролями и окружениями Ansible
 #### Выполненные работы
 
 1. Создана ветка **ansible-3**

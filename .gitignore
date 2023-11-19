@@ -13,7 +13,6 @@ example.tf
 .idea
 *.iml
 *.iml
-*.log
 modules-dev/
 *_override.tf
 override.tf
@@ -46,3 +45,8 @@ terraform.tfvars
 jdauphant.nginx
 vault.key
 *.retry
+*.log
+*.pyc
+.molecule
+.cache
+.pytest_cache

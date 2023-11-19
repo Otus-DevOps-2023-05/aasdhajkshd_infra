@@ -4,7 +4,7 @@
   become: true
   vars:
     mongo_port: 27017
-    mongo_bind_ip: 127.0.0.1
+    mongo_bind_ip: 0.0.0.0
     env: local
   tasks:
     - name: Show info about the env this host belongs to
@@ -13,13 +13,13 @@
     - name: Fetch the latest version of application code
       git:
         repo: 'https://github.com/express42/reddit.git'
-        dest: /home/{{ remote_user }}/reddit
+        dest: /home/{{ deploy_user }}/reddit
         version: monolith
       notify: Start puma
-    - name: Bundle install
+    - name: Bundle install app
       bundler:
         state: present
-        chdir: /home/{{ remote_user }}/reddit
+        chdir: /home/{{ deploy_user }}/reddit
     - name: Add unit file for Puma
       become: true
       copy:
