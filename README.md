@@ -125,6 +125,15 @@ molecule verify
 
 ![Reference](img/Screenshot_20231119_032440.png)
 
+### Задание со *
+
+1. вынеса роль **db** в отдельный [репозиторий](https://github.com/aasdhajkshd/mongodb.git) и удалена роль из репозитория **infra** и из файла `playbooks/site.yml`, добавлен в папку `ansible` файл `requirements.yml`
+
+```yaml
+- src: https://github.com/aasdhajkshd/mongodb.git
+  name: aasdhajkshd/mongodb
+```
+
 ---
 
 ## <a name="hw12">Работа с ролями и окружениями Ansible
