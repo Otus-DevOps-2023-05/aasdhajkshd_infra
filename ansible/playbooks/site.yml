@@ -1,9 +1,9 @@
 ---
+- name: Include a python raw install
+  import_playbook: base.yml
+
 - name: Include a database playbook
   import_playbook: db.yml
-
-- name: Include a puma deployment playbook
-  import_playbook: deploy.yml
 
 - name: Include a puma app playbook
   import_playbook: app.yml

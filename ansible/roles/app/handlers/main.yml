@@ -1,7 +1,16 @@
 ---
-- name: Reload puma
+- name: Restart puma
   become: true
   systemd:
     name: puma
     state: restarted
     daemon_reload: true
+- name: Start puma
+  become: true
+  systemd:
+    name: puma
+    state: started
+    daemon_reload: true
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
